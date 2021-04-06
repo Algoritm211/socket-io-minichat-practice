@@ -1,14 +1,18 @@
 import React, {useState} from 'react';
 import {Button, ButtonToolbar, ControlLabel, FlexboxGrid, Form, FormControl, FormGroup, Panel} from "rsuite";
-import {socket} from "../../socket/socket-config";
+import {socket} from "../../api/socket-config";
+import {observer} from "mobx-react-lite";
+import chatStore from "../../store/chatStore";
 
 const EntryForm = () => {
 
-  const [formValue, setFormValue] = useState({id: '', name: ''})
+
+  const [formValue, setFormValue] = useState({roomId: '', userName: ''})
 
   const onHandleSubmit = () => {
-    console.log(formValue)
-    socket.send(JSON.stringify(formValue))
+    // console.log(formValue)
+    // socket.send(JSON.stringify(formValue))
+    chatStore.login(formValue.roomId, formValue.userName)
   }
 
   return (
@@ -23,12 +27,12 @@ const EntryForm = () => {
               <FormGroup>
                 <ControlLabel>Room Id</ControlLabel>
                 <FormControl
-                  name="id" />
+                  name="roomId" />
               </FormGroup>
               <FormGroup>
                 <ControlLabel>Name</ControlLabel>
                 <FormControl
-                  name="name"
+                  name="userName"
                   type="text" />
               </FormGroup>
               <FormGroup>
@@ -45,4 +49,4 @@ const EntryForm = () => {
   );
 };
 
-export default EntryForm;
+export default observer(EntryForm);

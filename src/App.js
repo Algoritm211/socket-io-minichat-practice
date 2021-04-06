@@ -1,5 +1,5 @@
 import './App.css';
-import socket from './socket/socket-config'
+import socket from './api/socket-config'
 import EntryForm from "./components/EntryForm/EntryForm";
 
 function App() {
