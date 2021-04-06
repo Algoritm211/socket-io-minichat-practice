@@ -15,8 +15,7 @@ class ChatStore {
 
   login = async (roomId, userName) => {
     const data = await chatAPI.login(roomId, userName)
-    console.log(data)
-    socket.emit('ROOM_JOIN', roomId)
+    socket.emit('ROOM_JOIN', {roomId, userName})
     this.isAuth = true
     this.userName = userName
   }

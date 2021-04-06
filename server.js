@@ -28,8 +28,12 @@ app.post('/rooms', (request, response) => {
 
 io.on('connection', (socket) => {
   console.log('api connected', socket.id)
-  socket.on('ROOM_JOIN', (message) => {
-    console.log(message)
+  socket.on('ROOM_JOIN', ({roomId, userName}) => {
+    socket.join(roomId)
+    const room = rooms.get(roomId)
+    room.get('users').set(roomId, userName)
+    const users = [...rooms.get(roomId).get('users')]
+    socket.broadcast.to(roomId).emit('ROOM_JOINED', users)
   })
   // socket.on('message', (message) => console.log(message))
 })
