@@ -33,9 +33,16 @@ io.on('connection', (socket) => {
     const room = rooms.get(roomId)
     room.get('users').set(socket.id, userName)
     const users = [...rooms.get(roomId).get('users').values()]
-    io.in(roomId).emit('ROOM_JOINED', users)
+    io.in(roomId).emit('ROOM_SEND_USERS', users)
   })
-
+  socket.on('disconnect', () => {
+    rooms.forEach((value, roomId) => {
+      if (value.get('users').delete(socket.id)) {
+        const users = [...rooms.get(roomId).get('users').values()]
+        io.in(roomId).emit('ROOM_SEND_USERS', users)
+      }
+    })
+  })
   // socket.on('message', (message) => console.log(message))
 })
 
