@@ -5,7 +5,7 @@ import {chatAPI} from "../api/chat-api";
 class ChatStore {
 
   userName = null
-  roomId = null
+  usersList = []
   messages = []
   isAuth = false
 
@@ -18,6 +18,10 @@ class ChatStore {
     socket.emit('ROOM_JOIN', {roomId, userName})
     this.isAuth = true
     this.userName = userName
+  }
+
+  setUsersList = (usersList) => {
+    this.usersList = usersList
   }
 }
 

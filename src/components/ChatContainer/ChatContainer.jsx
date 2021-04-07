@@ -1,21 +1,24 @@
 import React, {useState} from 'react';
 import {Button, Container, Content, Footer, Header, Icon, Input, List, Sidebar} from "rsuite";
 import Message from "./Message/Message";
+import {observer} from "mobx-react-lite";
+import chatStore from "../../store/chatStore";
 
 const ChatContainer = () => {
   const [messageText, setMessageText] = useState('')
+  const {usersList} = chatStore
+  const usersBlock = usersList.map((user, index) => {
+    return (
+      <List.Item key={index}>{user}</List.Item>
+    )
+  })
 
   return (
     <Container style={{padding: '30px 10px'}}>
       <Sidebar width={300} style={{ textAlign: 'center', padding: '20px'}}>
-        <h3>Online (1)</h3>
+        <h3>Online ({usersList.length})</h3>
         <List bordered>
-            <List.Item >Hello</List.Item>
-            <List.Item >Hello</List.Item>
-            <List.Item >Hello</List.Item>
-            <List.Item >Hello</List.Item>
-            <List.Item >Hello</List.Item>
-            <List.Item >Hello</List.Item>
+          {usersBlock}
         </List>
       </Sidebar>
       <Container>
@@ -39,7 +42,7 @@ const ChatContainer = () => {
             rows={3}
             placeholder="Enter your message" />
         </Footer>
-        <Button color="primary" style={{maxWidth: '100px', marginTop: '7px'}}>
+        <Button color="blue" style={{maxWidth: '100px', marginTop: '7px'}}>
           <Icon icon="send"  /> Send
         </Button>
       </Container>
@@ -47,4 +50,4 @@ const ChatContainer = () => {
   );
 };
 
-export default ChatContainer;
+export default observer(ChatContainer);
