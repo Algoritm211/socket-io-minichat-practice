@@ -1,0 +1,15 @@
+
+
+.messages {
+  position: relative;
+  height: 60vh;
+  margin-bottom: 3px;
+}
+
+.scrollToBottom {
+  position: sticky;
+  align-self: flex-end;
+  right: 20px;
+  bottom: 276px;
+  height: 0;
+}

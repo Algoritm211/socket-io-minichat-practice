@@ -1,13 +1,15 @@
 import React from 'react';
 import {Message} from "rsuite";
 
-const ChatMessage = () => {
+const ChatMessage = ({message}) => {
+  const {userName, text} = message
+
   return (
     <div style={{marginBottom: '15px'}}>
       <Message
         type="info"
-        title="Alex S"
-        description="Detailed description and advices about successful copywriting."
+        title={userName}
+        description={text}
       />
     </div>
   );
